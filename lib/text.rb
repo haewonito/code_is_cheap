@@ -9,7 +9,7 @@ class Text
   end
 
   def quit
-    puts "That's too bad. Next time."
+    puts "That's too bad. Next time. Bye!"
   end
 
   def ask_for_guess
