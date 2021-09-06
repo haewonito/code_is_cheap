@@ -6,7 +6,7 @@ RSpec.describe Text do
 
   text = Text.new
 
-  it "can print a welcome message" do
+  it "can print messages" do
 
     text.welcome
     text.ask_for_guess

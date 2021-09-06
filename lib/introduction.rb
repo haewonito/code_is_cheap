@@ -6,10 +6,11 @@ class Introduction
 
  attr_reader :answer_for_intro
 
- text = Text.new
+ def initialize
+   text = Text.new
+   text.welcome
+   @answer_for_intro = gets.chomp
+ end
 
- text.welcome
-
- @answer_for_intro = gets.chomp
 
 end
