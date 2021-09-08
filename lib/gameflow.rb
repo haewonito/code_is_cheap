@@ -1,80 +1,76 @@
-require './lib/text'
-require './lib/secret_code'
+require './text'
+require './secret_code'
+
 
 class GameFlow
 
-  attr_reader :guess, :secret_code
-#@guess is a string. @guess_array is guess converted into array
+  attr_reader :guess, :secret_code, :text
+
+
   def initialize (secret_code)
-    text = Text.new
+    @text = Text.new
     text.ask_for_guess_first_time
+    @secret_code = secret_code
     @guess = gets.chomp.downcase
   end
 
+
+
   def ask_for_another_guess
-    text.ask_for_guess_again
-    @guess = gets.chomp
+    @text.ask_for_guess_again
+    @guess = gets.chomp.downcase
   end
-#return true if q or c
-  def q_or_c
-    if @guess == ("q" or ("quit" or "Q"))
+
+
+  def q_or_c (guess)
+
+    if guess == ("q" or ("quit" or "Q"))
       puts "Thanks for playing!"
       return true
-    elsif guess_string == ('c' or ("C" or "Cheat"))
-      puts @secret_code
+    elsif guess == ('c' or ("C" or "Cheat"))
+      puts secret_code
       return true
+    else
+      return false
     end
   end
-#return true if guess is invalid
-#maybe consider people putting in invlid letters?
-  def invalid_guess
-    guess_array = @guess.split("")
-    if (guess_array.length != 4)
+
+
+  def invalid_guess (guess)
+
+    if (guess.length != 4)
       puts "Invalid input! Try again!"
       return true
+    elsif guess.length == 4
+      return false
     end
   end
 
-  def correct_elements_calc
+  def correct_elements_calc(guess, secret_code)
 
-    count = 0
+    count_let = 0
     available_letters = ['r', 'g', 'b', 'y']
-    guess_array = @guess.split("")
+    guess_array = guess.split("")
 
-    availble_letters.each do |letter|
-      if @secret_code.count(letter) == guess_array.count(letter)
-        count = count + @secret_code.count(letter)
+    available_letters.each do |letter|
+      if secret_code.include?('letter') and guess_array.include?('letter')
+        count_let += [secret_code.count('letter'), guess_array.count('letter')].min
       end
     end
-    puts "You've guessed #{count} correct colors!"
+    puts "You guessed #{count_let} correct colors!"
+    return count_let #for test
   end
 
-  def correct_index_pos
+  def correct_index_pos(guess, secret_code)
 
-    count = 0
-    guess_array = @guess.split("")
+    count_let = 0
+    guess_array = guess.split("")
 
     [0, 1, 2, 3].each do |index|
-      if @secret_code[index] == guess_array[index]
-        count += 1
+      if secret_code[index] == guess_array[index]
+        count_let += 1
       end
     end
+    puts "and #{count_let} correct location!"
   end
-
-
-#???? is this how you call method within the same class?
-  def compare_n_print
-    if ((!(q_or_c) and !(invalid_guess)) and !(@secret_code == @guess.split("")))
-      correct_elements_calc
-      correct_index_pos
-      ask_for_another_guess
-    end
-  end
-
-  def correct_guess
-    if @secret_code == @guess.split("")
-      puts "You made the correct guess!"
-    end
-  end
-
 end
