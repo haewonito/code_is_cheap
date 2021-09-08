@@ -19,17 +19,23 @@ class GameFlow
   def ask_for_another_guess
     @text.ask_for_guess_again
     @guess = gets.chomp.downcase
+    if @guess == 'q'
+      puts "Bye!"
+      exit
+    end
   end
 
 
-  def q_or_c (guess)
+  def q_or_c
 
-    if guess == ("q" || "quit" || "Q")
+    if @guess == "q" || @guess == "quit"
       puts "Thanks for playing!"
       return true #for test
-      exit
-    elsif guess == ('c' || "C" || "Cheat")
-      puts secret_code
+      abort
+      #exit
+    elsif @guess == "c" || @guess == "cheat"
+      puts @secret_code
+      ask_for_another_guess
       return true #for test
     else
       return false #for test
@@ -37,24 +43,26 @@ class GameFlow
   end
 
 
-  def invalid_guess (guess)
+  def invalid_guess
 
-    if (guess.length != 4)
+    if (@guess.length != 4)
+      #require 'pry'; binding.pry
+
       puts "Invalid input!"
       ask_for_another_guess
-      return true #for test
-    elsif guess.length == 4
-      return false#for test
+      #return true #for test
+    elsif (@guess.length == 4)
+      #return false#for test
     end
   end
 
-  def correct_elements_calc(guess, secret_code)
+  def correct_elements_calc
 
     count_let = 0
     available_letters = ['r', 'g', 'b', 'y']
     guess_array = guess.split("")
 
-    available_letters.each do |letter|
+    @secret_code.each do |letter|
       if secret_code.include?('letter') and guess_array.include?('letter')
         count_let += [secret_code.count('letter'), guess_array.count('letter')].min
       end

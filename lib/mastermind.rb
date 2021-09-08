@@ -21,7 +21,7 @@ def start
   elsif @answer.downcase == ('p' or 'play')
     play_game
   else
-    puts "That is not a valid answer?"
+    puts "That is not a valid answer"
     self.start
   end
 end
@@ -33,19 +33,29 @@ def play_game
 
   game_flow = GameFlow.new (@secret_code_for_game)
 
+
   100.times do
+
+    if game_flow.guess == 'q'
+      puts "Bye!"
+      exit
+    end
+
+    turn_count += 1
+    puts "You have made #{turn_count} guesses."
+
 
     if game_flow.guess == @secret_code_for_game
       game_flow.end_game
     else
-      game_flow.q_or_c(game_flow.guess)
-      game_flow.invalid_guess(game_flow.guess)
+      game_flow.q_or_c
+      game_flow.invalid_guess
       game_flow.correct_elements_calc(game_flow.guess, @secret_code_for_game)
       game_flow.correct_index_pos(game_flow.guess, @secret_code_for_game)
       game_flow.ask_for_another_guess
-      puts "You have made #{turn_count} guesses."
-      turn_count += 1
     end
+
+
   end
 end
 
