@@ -24,14 +24,15 @@ class GameFlow
 
   def q_or_c (guess)
 
-    if guess == ("q" or ("quit" or "Q"))
+    if guess == ("q" || "quit" || "Q")
       puts "Thanks for playing!"
-      return true
-    elsif guess == ('c' or ("C" or "Cheat"))
+      return true #for test
+      exit
+    elsif guess == ('c' || "C" || "Cheat")
       puts secret_code
-      return true
+      return true #for test
     else
-      return false
+      return false #for test
     end
   end
 
@@ -39,10 +40,11 @@ class GameFlow
   def invalid_guess (guess)
 
     if (guess.length != 4)
-      puts "Invalid input! Try again!"
-      return true
+      puts "Invalid input!"
+      ask_for_another_guess
+      return true #for test
     elsif guess.length == 4
-      return false
+      return false#for test
     end
   end
 
@@ -72,5 +74,10 @@ class GameFlow
       end
     end
     puts "and #{count_let} correct location!"
+  end
+
+  def end_game
+    @text.congrats
+    exit
   end
 end

@@ -13,11 +13,12 @@ class Text
     puts "I have generated a beginner sequence with four elements made up of:"\
     "(r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the"\
     " game."
+    puts "You get 100 tries."
     puts "What's your guess?"
   end
 
   def ask_for_guess_again
-    puts "Would you like to make another guess?"
+    puts "What is your next guess?"
   end
 
   def instruction
@@ -46,6 +47,7 @@ class Text
     puts "Ready to play? Type (p)lay or (q)uit."
   end
 
-
-
+  def congrats
+    puts "Congratulations! You made the right guess!!"
+  end
 end

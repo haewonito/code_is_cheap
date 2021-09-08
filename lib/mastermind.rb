@@ -1,9 +1,8 @@
-#RUNNER FILE!!!!!!
 require './text'
 require './secret_code'
 require './gameflow'
 
-attr_reader :answer, :text, :guess, :secret_code_for_game
+#attr_reader :answer, :text, :guess, :secret_code_for_game
 
 @text = Text.new
 
@@ -33,17 +32,21 @@ def play_game
   turn_count = 0
 
   game_flow = GameFlow.new (@secret_code_for_game)
-  until game_flow.guess == @secret_code_for_game
-    game_flow.q_or_c(game_flow.guess)
-    game_flow.invalid_guess(game_flow.guess)
-    game_flow.correct_elements_calc(game_flow.guess, @secret_code_for_game)
-    game_flow.correct_index_pos(game_flow.guess, @secret_code_for_game)
-    game_flow.ask_for_another_guess
-    turn_count += 1
-    puts "You have made #{turn_count} guesses."
+
+  100.times do
+
+    if game_flow.guess == @secret_code_for_game
+      game_flow.end_game
+    else
+      game_flow.q_or_c(game_flow.guess)
+      game_flow.invalid_guess(game_flow.guess)
+      game_flow.correct_elements_calc(game_flow.guess, @secret_code_for_game)
+      game_flow.correct_index_pos(game_flow.guess, @secret_code_for_game)
+      game_flow.ask_for_another_guess
+      puts "You have made #{turn_count} guesses."
+      turn_count += 1
+    end
   end
 end
-
-
 
 start
