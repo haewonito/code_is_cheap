@@ -5,6 +5,7 @@ class SecretCode
 
   def initialize
     @secret_code = []
+
     4.times do
       @secret_code << ['g', 'b', 'y', 'r'].sample
     end

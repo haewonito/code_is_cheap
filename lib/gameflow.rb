@@ -17,8 +17,14 @@ class GameFlow
 
 
   def ask_for_another_guess
+    if @guess.split("") == @secret_code
+      @text.congrats
+      exit
+    end
+
     @text.ask_for_guess_again
     @guess = gets.chomp.downcase
+
     if @guess == 'q'
       puts "Bye!"
       exit
@@ -32,7 +38,6 @@ class GameFlow
       puts "Thanks for playing!"
       return true #for test
       abort
-      #exit
     elsif @guess == "c" || @guess == "cheat"
       puts @secret_code
       ask_for_another_guess
@@ -46,13 +51,11 @@ class GameFlow
   def invalid_guess
 
     if (@guess.length != 4)
-      #require 'pry'; binding.pry
-
       puts "Invalid input!"
       ask_for_another_guess
-      #return true #for test
+      # return true #for test
     elsif (@guess.length == 4)
-      #return false#for test
+      # return false#for test
     end
   end
 
@@ -60,28 +63,30 @@ class GameFlow
 
     count_let = 0
     available_letters = ['r', 'g', 'b', 'y']
-    guess_array = guess.split("")
+    guess_array = @guess.split("")
 
-    @secret_code.each do |letter|
-      if secret_code.include?('letter') and guess_array.include?('letter')
-        count_let += [secret_code.count('letter'), guess_array.count('letter')].min
+    available_letters.each do |letter|
+      if @secret_code.include?(letter) and guess_array.include?(letter)
+        count_let += ([@secret_code.count(letter), guess_array.count(letter)].min)
       end
     end
+
     puts "You guessed #{count_let} correct colors!"
-    return count_let #for test
+    count_let
   end
 
-  def correct_index_pos(guess, secret_code)
+  def correct_index_pos
 
     count_let = 0
-    guess_array = guess.split("")
+    guess_array = @guess.split("")
 
     [0, 1, 2, 3].each do |index|
-      if secret_code[index] == guess_array[index]
+      if @secret_code[index] == guess_array[index]
         count_let += 1
       end
     end
     puts "and #{count_let} correct location!"
+    count_let
   end
 
   def end_game

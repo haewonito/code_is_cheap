@@ -1,7 +1,6 @@
 require 'rspec'
-# require './lib/text'
-# require './lib/introduction'
-# require ',/lib/secret_code'
+require './lib/text'
+require ',/lib/secret_code'
 require './lib/gameflow'
 
 RSpec.describe GameFlow do
@@ -12,12 +11,12 @@ RSpec.describe GameFlow do
 
     expect(game_flow_1.q_or_c('q')).to be true
     expect(game_flow_1.q_or_c('c')).to be true
-    #expect(game_flow_1.q_or_c('Cheat')).to be true
     expect(game_flow_1.q_or_c('a')).to be false
 
   end
 
-  xit "can catch an invalid_guess and return true" do
+  it "can catch an invalid_guess and return true" do
+    game_flow_1 = GameFlow.new("rrrr")
 
     expect(game_flow_1.invalid_guess('dgekg')).to be true
     expect(game_flow_1.invalid_guess('dge')).to be true

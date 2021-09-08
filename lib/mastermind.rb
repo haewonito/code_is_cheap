@@ -44,18 +44,18 @@ def play_game
     turn_count += 1
     puts "You have made #{turn_count} guesses."
 
+    guess_array = game_flow.guess.split("")
 
-    if game_flow.guess == @secret_code_for_game
-      game_flow.end_game
+    if guess_array == @secret_code_for_game
+      @text.congrats
+      exit
     else
       game_flow.q_or_c
       game_flow.invalid_guess
-      game_flow.correct_elements_calc(game_flow.guess, @secret_code_for_game)
-      game_flow.correct_index_pos(game_flow.guess, @secret_code_for_game)
+      game_flow.correct_elements_calc
+      game_flow.correct_index_pos
       game_flow.ask_for_another_guess
     end
-
-
   end
 end
 
